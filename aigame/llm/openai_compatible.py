@@ -17,7 +17,7 @@ class OpenAICompatibleLLMClient(LLMClientBase):
         base_url: str = 'http://localhost:1234/v1',
         model: str = 'local-model',
         api_key: str = 'local-dev-key',
-        timeout_seconds: int = 20,
+        timeout_seconds: int = 120,
     ) -> None:
         self._base_url = base_url.rstrip('/')
         self._model = model

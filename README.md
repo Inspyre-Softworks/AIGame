@@ -45,7 +45,7 @@ Taylor B. | Inspyre-Softworks
 python main.py
 ```
 
-By default, the CLI now uses **LM Studio-style OpenAI-compatible settings** (`http://127.0.0.1:1234/v1`).
+By default, the CLI now uses **LM Studio-style OpenAI-compatible settings** (`http://127.0.0.1:1234/v1`) with a **120 second request timeout**.
 
 Useful commands:
 
@@ -55,6 +55,9 @@ python main.py --llm lm-studio
 
 # Override LM Studio model/base URL
 python main.py --llm lm-studio --model your-model-id --base-url http://127.0.0.1:1234/v1
+
+# Increase timeout for slower local models
+python main.py --llm lm-studio --timeout-seconds 300
 
 # Force mock mode for offline testing
 python main.py --llm mock

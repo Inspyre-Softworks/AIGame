@@ -19,6 +19,7 @@ def parse_args(config: GameConfig, argv: list[str] | None = None) -> argparse.Na
     parser.add_argument('--base-url', default=config.lm_studio_base_url)
     parser.add_argument('--model', default=config.lm_studio_model)
     parser.add_argument('--api-key', default=config.lm_studio_api_key)
+    parser.add_argument('--timeout-seconds', type=int, default=config.lm_studio_timeout_seconds)
     return parser.parse_args(argv)
 
 
@@ -30,6 +31,7 @@ def build_llm_client(args: argparse.Namespace) -> LLMClientBase:
         base_url=args.base_url,
         model=args.model,
         api_key=args.api_key,
+        timeout_seconds=args.timeout_seconds,
     )
 
 

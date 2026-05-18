@@ -11,6 +11,7 @@ def test_parse_args_defaults_to_lm_studio() -> None:
     assert args.llm == 'lm-studio'
     assert args.base_url == config.lm_studio_base_url
     assert args.model == config.lm_studio_model
+    assert args.timeout_seconds == config.lm_studio_timeout_seconds
 
 
 def test_build_llm_client_selects_mock() -> None:
@@ -29,3 +30,14 @@ def test_build_llm_client_selects_openai_compatible() -> None:
     client = build_llm_client(args)
 
     assert isinstance(client, OpenAICompatibleLLMClient)
+    assert client._timeout_seconds == config.lm_studio_timeout_seconds
+
+
+def test_build_llm_client_respects_timeout_override() -> None:
+    config = GameConfig()
+    args = parse_args(config, ['--llm', 'lm-studio', '--timeout-seconds', '300'])
+
+    client = build_llm_client(args)
+
+    assert isinstance(client, OpenAICompatibleLLMClient)
+    assert client._timeout_seconds == 300
