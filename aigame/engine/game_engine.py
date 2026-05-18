@@ -48,7 +48,11 @@ class GameEngine(Loggable):
         '''Generate an event with retry+fallback behavior on invalid payloads.'''
         prompt = self.prompt_builder.build(state)
         for _ in range(self.config.llm_max_retries + 1):
-            payload = self.llm_client.generate_event_json(prompt)
+            try:
+                payload = self.llm_client.generate_event_json(prompt)
+            except Exception as exc:  # noqa: BLE001
+                self.logger.warning('LLM request failed. Retrying... (%s)', exc)
+                continue
             try:
                 return self.llm_client.parse_event(payload)
             except ValidationError:

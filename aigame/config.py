@@ -16,7 +16,7 @@ class GameConfig:
     lm_studio_base_url: str = 'http://127.0.0.1:1234/v1'
     lm_studio_model: str = 'local-model'
     lm_studio_api_key: str = 'lm-studio'
-    lm_studio_timeout_seconds: int = 120
+    lm_studio_timeout_seconds: int = 300
     save_file_name: str = 'presidency_save.json'
     default_country_name: str = 'The Republic of Vespera'
     min_stat_value: int = 0

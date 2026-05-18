@@ -45,7 +45,7 @@ Taylor B. | Inspyre-Softworks
 python main.py
 ```
 
-By default, the CLI now uses **LM Studio-style OpenAI-compatible settings** (`http://127.0.0.1:1234/v1`) with a **120 second request timeout**.
+By default, the CLI now uses **LM Studio-style OpenAI-compatible settings** (`http://127.0.0.1:1234/v1`) with a **300 second request timeout**.
 
 Useful commands:
 
