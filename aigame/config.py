@@ -17,6 +17,8 @@ class GameConfig:
     lm_studio_model: str = 'local-model'
     lm_studio_api_key: str = 'lm-studio'
     lm_studio_timeout_seconds: int = 300
+    openai_compatible_endpoint_path: str = '/chat/completions'
+    openai_compatible_message_content_format: str = 'string'
     save_file_name: str = 'presidency_save.json'
     default_country_name: str = 'The Republic of Vespera'
     min_stat_value: int = 0

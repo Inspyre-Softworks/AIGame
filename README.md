@@ -59,6 +59,14 @@ python main.py --llm lm-studio --model your-model-id --base-url http://127.0.0.1
 # Increase timeout for slower local models
 python main.py --llm lm-studio --timeout-seconds 300
 
+# Use another OpenAI-compatible provider (example: Lightning AI)
+python main.py --llm openai-compatible \
+  --base-url https://lightning.ai \
+  --endpoint-path /api/v1/chat/completions \
+  --model openai/gpt-5 \
+  --api-key $LIGHTNING_API_KEY \
+  --message-content-format content-parts
+
 # Force mock mode for offline testing
 python main.py --llm mock
 ```
