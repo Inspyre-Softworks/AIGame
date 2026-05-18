@@ -42,7 +42,20 @@ Taylor B. | Inspyre-Softworks
 ## Run locally
 
 ```bash
-python main.py --llm mock
+python main.py
 ```
 
-Use `--llm openai-compatible` to target local OpenAI-style servers.
+By default, the CLI now uses **LM Studio-style OpenAI-compatible settings** (`http://127.0.0.1:1234/v1`).
+
+Useful commands:
+
+```bash
+# Use LM Studio defaults
+python main.py --llm lm-studio
+
+# Override LM Studio model/base URL
+python main.py --llm lm-studio --model your-model-id --base-url http://127.0.0.1:1234/v1
+
+# Force mock mode for offline testing
+python main.py --llm mock
+```

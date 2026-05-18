@@ -13,6 +13,9 @@ class GameConfig:
     term_turns: int = 12
     starting_turn: int = 1
     llm_max_retries: int = 2
+    lm_studio_base_url: str = 'http://127.0.0.1:1234/v1'
+    lm_studio_model: str = 'local-model'
+    lm_studio_api_key: str = 'lm-studio'
     save_file_name: str = 'presidency_save.json'
     default_country_name: str = 'The Republic of Vespera'
     min_stat_value: int = 0

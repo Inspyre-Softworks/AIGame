@@ -7,31 +7,36 @@ import argparse
 
 from aigame.config import GameConfig
 from aigame.engine.game_engine import GameEngine
+from aigame.llm.base import LLMClientBase
 from aigame.llm.mock import MockLLMClient
 from aigame.llm.openai_compatible import OpenAICompatibleLLMClient
 from aigame.ui.terminal_app import TerminalApp
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(config: GameConfig, argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Narrative political simulation MVP.')
-    parser.add_argument('--llm', choices=['mock', 'openai-compatible'], default='mock')
-    parser.add_argument('--base-url', default='http://localhost:1234/v1')
-    parser.add_argument('--model', default='local-model')
-    parser.add_argument('--api-key', default='local-dev-key')
-    return parser.parse_args()
+    parser.add_argument('--llm', choices=['mock', 'openai-compatible', 'lm-studio'], default='lm-studio')
+    parser.add_argument('--base-url', default=config.lm_studio_base_url)
+    parser.add_argument('--model', default=config.lm_studio_model)
+    parser.add_argument('--api-key', default=config.lm_studio_api_key)
+    return parser.parse_args(argv)
+
+
+def build_llm_client(args: argparse.Namespace) -> LLMClientBase:
+    '''Create an LLM client from parsed CLI arguments.'''
+    if args.llm == 'mock':
+        return MockLLMClient()
+    return OpenAICompatibleLLMClient(
+        base_url=args.base_url,
+        model=args.model,
+        api_key=args.api_key,
+    )
 
 
 def main() -> None:
-    args = parse_args()
     config = GameConfig()
-    if args.llm == 'mock':
-        llm_client = MockLLMClient()
-    else:
-        llm_client = OpenAICompatibleLLMClient(
-            base_url=args.base_url,
-            model=args.model,
-            api_key=args.api_key,
-        )
+    args = parse_args(config)
+    llm_client = build_llm_client(args)
     engine = GameEngine(config=config, llm_client=llm_client)
     TerminalApp(engine=engine, config=config).run()
 
