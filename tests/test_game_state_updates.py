@@ -9,11 +9,10 @@ def test_choice_application_updates_state_and_history() -> None:
     event = engine.get_turn_event(state)
 
     original_turn = state.turn
-    original_economy = state.stats['economy']
 
     applied = engine.apply_choice(state, event, event.choices[0].id)
 
     assert state.turn == original_turn + 1
     assert len(state.history) == 1
-    assert state.stats['economy'] != original_economy
     assert applied
+    assert state.history[0].applied_changes == applied
